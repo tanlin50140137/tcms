@@ -1,0 +1,42 @@
+@charset "utf-8";
+
+/*后台首页*/
+#divMain { float: left; width: 100%; padding: 0px; margin: 0px; }
+#divMain a,
+#divMain2 a { color: #1d4c7d; }
+#divMain a:hover,
+#divMain2  a:hover { color: #d60000; }
+#divMain2 { padding: 0px; margin: 0px; }
+.divHeader { height: 1.8em; line-height: 1.8em; font-size: 1.5em; padding: 5px 0 42px 0; }
+.divHeader2 { height: 1.8em; line-height: 1.8em; font-size: 1.5em; padding: 5px 0 42px 0; border-bottom: 5px solid #e0e0e0; margin-bottom:5px; }
+.main>#divMain>div[class^="divHeader"],.main>#divMain2>div[class^="divHeader"]{padding-left:40px;background:url('../image/admin/none.gif') 3px 9px no-repeat;background-size:32px;}
+
+/*侧栏管理*/
+.widget-left { float: left; clear: left; width: 100%; margin-right: -290px; overflow: hidden; }
+.widget-list { min-width: 530px; margin-right: 290px; border: 2px solid #EEE; }
+.siderbar-list { float: right; width: 290px; margin-left: 0; }
+.widget-list-header,
+.siderbar-header,
+.siderbar-note { clear: both; background: #EDEDED; padding: 5px; font-size: 1.1em; font-weight: bold; text-align: center; margin-bottom: 3px; }
+.widget { width: 252px; border: 1px solid #ccc; margin: 3px 4px 3px 4px; padding: 0px; float: left; }
+.widget img { margin: 3px; margin-bottom: -3px; }
+.widget-title { margin: 0px; padding: 6px; color: #333; cursor: move; }
+.widget-title span { display: inline-block; }
+.widget_ishidden_true img.more-action { opacity: 0.40; }
+.widget-action { float: right; }
+.siderbar-drop { float: right; background: #fefefe; border: 2px solid #eee; margin: 0 5px 10px 15px; }
+.siderbar-sort-list { float: right; width: 262px; min-height: 30px; position: relative; z-index: 0; }
+.siderbar-header:hover { cursor: pointer; color: #000000; background: #b0cdee; }
+.siderbar-header .ui-icon { float: right; }
+.widget-list-note,
+.siderbar-note { color: #666; background: #fff; margin: 0; padding: 0; text-align: center; }
+.siderbar-note { position: absolute; z-index: 1; top: 0; left: 0; margin-top: 3px; width: 252px; }
+.siderbar-sort-list .widget { position: relative; z-index: 2; }
+.widget_source_system .widget-title { background: #e3e4e4; }
+.widget_source_user .widget-title { background: #c6d4e5; }
+.widget_source_theme .widget-title { background: #d7e3bc; }
+.widget_source_plugin .widget-title { background: #d4cddd; }
+.widget_source_other .widget-title { background: #ded9c0; }
+
+/*.custom-state-active{background: #B5DCF0;}*/
+.siderbar-list .roll { display: none; }

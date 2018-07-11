@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<box>
+<back_url>http://127.0.0.1/thiscmssystem/index.php</back_url>
+<qq_appid>#</qq_appid>
+<qq_appkey>#</qq_appkey>
+<qq_url>#</qq_url>
+<w_appid>#</w_appid>
+<w_appkey>#</w_appkey>
+<w_url>#</w_url>
+<x_appid>#</x_appid>
+<x_appkey>#</x_appkey>
+<x_url>#</x_url>
+<show_hide>1</show_hide>
+<tBiao11>/subject/plugin/member/upload/2017082314323740674.png</tBiao11>
+<tbalt1>QQ</tbalt1>
+<tBiao12>/subject/plugin/member/upload/2017082314323718621.png</tBiao12>
+<tbalt2>微信</tbalt2>
+<tBiao13>/subject/plugin/member/upload/2017082314323720969.png</tBiao13>
+<tbalt3>新浪</tbalt3>
+<login_title>会员登录</login_title>
+<reset_title>会员注册</reset_title>
+<id>7</id>
+</box>

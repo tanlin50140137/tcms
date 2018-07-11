@@ -1,0 +1,51 @@
+@CHARSET "UTF-8";
+/************评论发表用的样式*************/
+#divCommentPost{
+	width:98%;
+	margin:0 0 0 0;
+	padding:5px 1% 15px 1%;
+}
+
+#divCommentPost p{margin-top:10px;}
+#divCommentPost label{margin-top:5px;}
+
+#divCommentPost p.posttop{
+color:#3c6da7;
+}
+
+#divCommentPost img{margin-bottom:-0.5em;}
+#cancel-reply{float:right;margin-right: 2em;}
+div.reply-frm{
+	background:#f0f0f0;
+	box-shadow: 0 0 15px #666;
+	margin:1em 1% !important;
+	padding:.3em .8em !important;
+	min-width:330px;
+}
+
+input.text{
+border:1px solid #d7d7d7;
+line-height:20px;
+height:24px;
+padding:2px 5px 2px 5px;
+}
+#txaArticle{padding:5px;width:95%;height:150px;border:1px solid #d7d7d7;}
+input.button {color:#FFFFFF; font-size:14px; width:100px; height:32px; background:#3a6ea5; border:1px solid #3399CC;cursor: pointer;}
+.content-CommentPost{margin-top:5px;}
+.Commentqu{border-bottom:1px solid #CCCCCC;}
+.Commentqu-ins{float:left;margin-top:10px;}
+.Commentqu-ins-left{width:48px;height:48px;}
+.Commentqu-ins-right{margin-left:5px;}
+.CommentotherName{color:#999999;font-size:14px;}
+.CommentotherTime{color:#999999;font-size:12px;margin-top:10px;}
+.Comment-name-list1{float:left;}
+.Comment-name-list2{float:right;}
+.Comment-name-list2 dd{float:left;margin-left:15px;font-size:13px;}
+#Comment-dianzan{margin-right:45px;}
+.Commentotherbody{margin-top:10px;color:#333333;}
+.Commentotherbody p{margin-bottom:15px;word-break:break-all;}
+.Comment-line{border-bottom:1px solid #CCCCCC;padding:5px 0;}
+.Comment-dianzan{cursor:pointer;}
+.Comment-name-huifu {background:#F0F0F0;}
+.Comment-name-huifu p{padding:10px;color:#999999;word-break:break-all;}
+.Comment-huifu-ins{color:#999999;}

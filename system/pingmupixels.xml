@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<box>
+<act>pingmupixels</act>
+<pixels>1400</pixels>
+<call>ThemeMng</call>
+</box>
