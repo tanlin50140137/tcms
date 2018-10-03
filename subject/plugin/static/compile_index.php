@@ -10,7 +10,7 @@ if($data['filter'] == 'ON')
 		file_get_contents(apth_url('index.php?static_goto=1'));
 		echo '生成首页：'.date('Y-m-d H:i:s').'<br/>';
 		echo '-----------------------------------<br/>';
-		echo '生成首页成功...！　<a href="'.apth_url('subject/'.getThemeDir().'/index.html').'" target="_blank">首页面</a><br/>';
+		echo '生成首页成功...！　<a href="'.apth_url(getThemeDir().'/index.html').'" target="_blank">首页面</a><br/>';
 		echo '-----------------------------------<br/>';
 		
 		if($_REQUEST['act'] == 1)

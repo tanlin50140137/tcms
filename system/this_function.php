@@ -35,16 +35,26 @@ function xml_str2($array)
 #加载主题
 function load_theme($dir='default')
 {
-	$dir = $dir==''?'404':$dir;
-	if(is_file(BASE_URL.'/subject/'.$dir.'/index.php'))
+	$dir = $dir==''?'404':$dir;	
+		
+	if(is_file(DIR_URL.'/subject/'.$dir.'/index.php'))
 	{
-		require BASE_URL.'/subject/'.$dir.'/index.php';
+		include_once DIR_URL.'/subject/'.$dir.'/index.php';
 	}
 	else 
 	{
 		header("content-type:text/html;charset=utf-8");
 		echo '加载失败：主题首页不存在 或 未启用主题 !';
 	}
+}
+#添加后缀
+function AddHouZhui($m)
+{
+	if( $m !== '' )
+	{
+		$m = $m.'.html';
+	}
+	return $m;
 }
 #根目录url
 function apth_url($url='')
@@ -803,15 +813,13 @@ function getThemeDir()
 #获取栏目列表静态路径
 function getColumnStaticUrl($columnname)
 {
-	//$dirapth = DIR_URL.'/subject/'.getThemeDir().'/column/'.$columnname.'.html';
-	$filename = apth_url('subject/'.getThemeDir().'/column/'.$columnname.'.html');
+	$filename = apth_url('column/'.$columnname.'.html');
 	return $filename;
 }
 #获取文章静态路径
 function getArtStaticUrl($staticname)
 {
-	//$dirapth = DIR_URL.'/subject/'.getThemeDir().'/artic/'.substr($staticname,0,4).'/'.substr($staticname,4,2).'/'.$staticname.'.html';
-	$filename = apth_url('subject/'.getThemeDir().'/artic/'.substr($staticname,0,4).'/'.substr($staticname,4,2).'/'.$staticname.'.html');
+	$filename = apth_url('artic/'.$staticname.'.html');
 	return $filename;
 }
 #获取某个目录下的文件
@@ -849,8 +857,8 @@ function paging($delimiter='')
 		$html = '总数：'.ROWS_TOTAL.'　当前'.PAGE.'/'.PAGE_TOTAL.'页　';	
 		if(ROWS_TOTAL>=SHOW_TOTAL)
 		{
-		$html .= '<a href="'.apth_url('subject/'.getThemeDir().'/paging/list_'.(PAGE-1==0?1:(PAGE-1)).(LIST_ID==""?"":"_".LIST_ID).'.html').'">上一页</a> '.$delimiter;
-		$html .= ' <a href="'.apth_url('subject/'.getThemeDir().'/paging/list_'.(PAGE+1>=PAGE_TOTAL?PAGE_TOTAL:(PAGE+1)).(LIST_ID==""?"":"_".LIST_ID).'.html').'">下一页 </a> &nbsp; ';
+		$html .= '<a href="'.apth_url('paging/list_'.(PAGE-1==0?1:(PAGE-1)).(LIST_ID==""?"":"_".LIST_ID).'.html').'">上一页</a> '.$delimiter;
+		$html .= ' <a href="'.apth_url('paging/list_'.(PAGE+1>=PAGE_TOTAL?PAGE_TOTAL:(PAGE+1)).(LIST_ID==""?"":"_".LIST_ID).'.html').'">下一页 </a> &nbsp; ';
 		$html .= '<input type="text" size="2" id="GO" name="GO" value=""/> ';
 		$html .= "<input type='submit' value='GO' onclick='gotopage()' id='button_go'/>";
 		$html .= '
@@ -864,7 +872,7 @@ function paging($delimiter='')
 					{
 						if(document.getElementById("GO").value>=1&&document.getElementById("GO").value<=submitgoval)
 						{
-						location.href="'.apth_url('subject/'.getThemeDir().'/paging/list_').'"+document.getElementById("GO").value+".html";				
+						location.href="'.apth_url('paging/list_').'"+document.getElementById("GO").value+".html";				
 						}
 					}
 				}
@@ -879,8 +887,8 @@ function paging($delimiter='')
 		$html = '总数：'.ROWS_TOTAL.'　当前'.PAGE.'/'.PAGE_TOTAL.'页　';	
 		if(ROWS_TOTAL>=SHOW_TOTAL)
 		{
-		$html .= '<a href="'.site_url("index.php?act=article_list&page=".(PAGE-1).(FILED_S==""?"":"&filed=".FILED_S).(LIST_ID==""?"":"&id=".LIST_ID)).'">上一页</a> '.$delimiter;
-		$html .= ' <a href="'.site_url("index.php?act=article_list&page=".(PAGE+1).(FILED_S==""?"":"&filed=".FILED_S).(LIST_ID==""?"":"&id=".LIST_ID)).'">下一页 </a> &nbsp; ';
+		$html .= '<a href="'.site_url("?act=article_list&page=".(PAGE-1).(FILED_S==""?"":"&filed=".FILED_S).(LIST_ID==""?"":"&id=".LIST_ID)).'">上一页</a> '.$delimiter;
+		$html .= ' <a href="'.site_url("?act=article_list&page=".(PAGE+1).(FILED_S==""?"":"&filed=".FILED_S).(LIST_ID==""?"":"&id=".LIST_ID)).'">下一页 </a> &nbsp; ';
 		$html .= '<input type="text" size="2" id="GO" name="GO" value=""/> ';
 		$html .= "<input type='submit' value='GO' onclick='gotopage()' id='button_go'/>";
 		$html .= '
@@ -894,7 +902,7 @@ function paging($delimiter='')
 					{
 						if(document.getElementById("GO").value>=1&&document.getElementById("GO").value<=submitgoval)
 						{
-						location.href="'.site_url("index.php?act=article_list".(FILED_S==""?"":"&filed=".FILED_S).(LIST_ID==""?"":"&id=".LIST_ID)).'&page="+document.getElementById("GO").value;
+						location.href="'.site_url("?act=article_list".(FILED_S==""?"":"&filed=".FILED_S).(LIST_ID==""?"":"&id=".LIST_ID)).'&page="+document.getElementById("GO").value;
 						}
 					}
 				}	
@@ -1389,7 +1397,7 @@ function This_article_c()
 	include Pagecall('static');
 	
 	#内容ID
-	$id = trim(htmlspecialchars($_GET['id'],ENT_QUOTES));
+	$id = trim(htmlspecialchars($_REQUEST['id'],ENT_QUOTES));
 	#检测ID是否存在
 	$int = db()->select('*')->from(PRE.'article')->where(array('id'=>$id))->get()->array_nums();
 	if( $int == 0 )
@@ -2061,59 +2069,34 @@ function get_day_formt($t)
 	}
 	return floor($int).$ext[$i];
 }
-#获取姓氏
-function GetAsurname($page=1)
+#判断当前终端
+function isMobile(){ 
+    $useragent=isset($_SERVER['HTTP_USER_AGENT']) ? $_SERVER['HTTP_USER_AGENT'] : ''; 
+    $useragent_commentsblock=preg_match('|\(.*?\)|',$useragent,$matches)>0?$matches[0]:'';       
+    function CheckSubstrs($substrs,$text){ 
+        foreach($substrs as $substr) 
+            if(false!==strpos($text,$substr)){ 
+                return true; 
+            } 
+            return false; 
+    }
+    $mobile_os_list=array('Google Wireless Transcoder','Windows CE','WindowsCE','Symbian','Android','armv6l','armv5','Mobile','CentOS','mowser','AvantGo','Opera Mobi','J2ME/MIDP','Smartphone','Go.Web','Palm','iPAQ');
+    $mobile_token_list=array('Profile/MIDP','Configuration/CLDC-','160×160','176×220','240×240','240×320','320×240','UP.Browser','UP.Link','SymbianOS','PalmOS','PocketPC','SonyEricsson','Nokia','BlackBerry','Vodafone','BenQ','Novarra-Vision','Iris','NetFront','HTC_','Xda_','SAMSUNG-SGH','Wapaka','DoCoMo','iPhone','iPod'); 
+              
+    $found_mobile=CheckSubstrs($mobile_os_list,$useragent_commentsblock) || 
+              CheckSubstrs($mobile_token_list,$useragent); 
+              
+    if ($found_mobile){ //手机
+        return true; 
+    }else{ //电脑
+        return false; 
+    } 
+}
+#跳转终端
+function LocationTerminal($url)
 {
-	#常用姓氏
-	$string = "李王张刘陈杨赵黄周吴徐孙胡朱高林何郭马罗梁宋郑谢韩唐冯于董萧程曹袁邓许傅沈曾彭吕苏卢蒋蔡贾丁魏薛叶阎余潘杜戴夏钟汪田任姜范方石姚谭盛邹熊金陆郝孔白崔康毛邱秦江史顾汤乔钱侯邵孟龙万段章尹易常武赖贺龚文黎柴岳习农伍毕柯秋伊申陶关凌童廖莫宁宗舒云卫严柳俞苗雷岑费季巩甄甘蒙庞穆霍樊阮聂衡戈鞠庄禹";
-	
-	$rows = db()->select('id,xing')->from(PRE.'surname')->get()->array_rows();
-	$xingArr = array();
-	if( !empty( $rows ) )
-	{
-		foreach( $rows as $k => $v )
-		{
-			if( strpos($string, $v['xing']) !== false)
-			{
-				$xingArr[] = $v;
-			}
-		}
+	if( isMobile() == true )
+	{#手机
+		header('location:'.$url);
 	}
-	return $xingArr;
-}
-#获取年份-公历
-function GetYear()
-{
-	include_once base_url('subject/default/rili/Rl.class.php');
-	$r = Rl::active();//获了类对像  
-	$yyyy = $r->yyyy();
-	return array('yyyy'=>$yyyy,'this'=>date('Y'));
-}
-#获取月份-公历
-function GetMonth()
-{
-	include_once base_url('subject/default/rili/Rl.class.php');
-	$r = Rl::active();//获了类对像  	
-	$mm = $r->Mon();
-	array_shift($mm);
-	return array('mm'=>$mm,'this'=>date('m'));
-}
-#获取日-公历
-function GetDates()
-{
-	include_once base_url('subject/default/rili/Rl.class.php');
-	$r = Rl::active();//获了类对像  
-	$dd = $r->Gdate(date('Y'),date('m'));
-	return array('dd'=>$dd,'this'=>date('d'));
-}
-#获取地址
-function EaraAlls()
-{
-	$eara1 = array('北京市','福建省','安徽省','甘肃省','广东省','广西壮族自治区','贵州省','海南省','河北省','河南省','黑龙江省','湖北省','湖南省','吉林省','江苏省','江西省','辽宁省','内蒙古自治区','宁夏回族自治区','青海省','山东省','山西省','陕西省','上海市','四川省','天津市','西藏自治区','新疆维吾尔','云南省','浙江省','重庆市','港澳台');
-	$eara2 = array(0 => '天安门-dshN',1 => '北京市-dshO',2 => '房山区-djh8',3 => '大兴区-dihK',
-          4 => '崇文区-drhQ',5 => '朝阳区-dthQ',6 => '通州区-dthd',7 => '海淀区-dvhI',
-          8 => '东城区-duhP',9 => '西城区-dthM',10 => '宣武区-dqhL',11 => '丰台区-dphH',
-          12 => '石景山区-dshD',13 => '门头沟区-duh6',14 => '昌平区-eDhE',15 => '顺义区-e8hd',
-          16 => '怀柔区-eJhc',17 => '平谷区-e8i7',18 => '延庆县-eRgw',19 => '密云县-eMho');
-	return array('a'=>$eara1,'b'=>$eara2);
 }

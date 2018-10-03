@@ -62,6 +62,7 @@ function LoginInterfaceTop()
 	<link href="'.site_url('plugin/froala_editor/css/font-awesome.min.css').'" rel="stylesheet" type="text/css">
 	<link href="'.site_url('plugin/froala_editor/css/froala_editor.min.css').'" rel="stylesheet" type="text/css">
 	<link rel="icon" href="'.apth_url("subject/htx/images/icon_in.png").'">
+	<link rel="icon" href="'.apth_url("favicon.ico").'">
 	<script src="'.site_url('js/jquery-1.8.3.min.js').'" type="text/javascript"></script>
 	<script src="'.site_url('js/jquery-ui.custom.min.js').'" type="text/javascript"></script>
 	<script type="text/javascript" src="'.site_url('js/jquery-ui-timepicker-addon.js').'"></script>
@@ -4581,7 +4582,7 @@ function PageEdtUp()
 	#作者
 	$rows = db()->select('*')->from(PRE.'login')->order_by('id desc')->get()->array_rows();
 	#查询
-	$row = db()->select('*')->from(PRE.'template')->where(array('id'=>$id))->get()->array_row();
+	$row = db()->select('*')->from(PRE.'template')->where(array('id'=>$id))->get()->array_row();	
 	#查询父类栏目
 	$datas = GetFenLai('0');
 	#查询主题
@@ -4618,19 +4619,19 @@ if(!empty($datas))
 		</div>
 		<div class="userjibie ujt">栏目封面图片</div>
 		<div>
-		<input type="file" name="cover" style="border: 1px solid #CCCCCC;padding: 0.25em 0.25em 0.25em 0.25em;background-position: bottom;background: #FFFFFF;font-size: 1em;"/>
+		<input type="file" name="cover" onchange="previewImage(this);" style="border: 1px solid #CCCCCC;padding: 0.25em 0.25em 0.25em 0.25em;background-position: bottom;background: #FFFFFF;font-size: 1em;"/>
 		<span>上传最大2M，类型要求(jpeg，jpg，gif，png)</span>
 		<div style="border:1px solid #999999;margin-top:2px;width:150px;">';
-	if(strrpos($row['cover'], 'a-ettra01.jpg')||$row['cover']=='')
+	if(strstr($row['cover'], 'a-ettra01')||$row['cover']=='')
 	{	
 		$subject .= '<span>默认封面图片</span>
-		<img src="'.apth_url('system/admin/pic/defualt/a-ettra01.jpg').'" width="150"/>
+		<img src="'.apth_url('system/admin/pic/defualt/a-ettra01.jpg').'" width="150" id="img_url"/>
 		<input type="hidden" name="srcpath" value="system/admin/pic/defualt/a-ettra01.jpg"/>';
 	}
 	else 
 	{
 		$subject .= '<span>封面图片</span>
-		<img src="'.$row['cover'].'" width="150"/>
+		<img src="'.apth_url($row['cover']).'" width="150" id="img_url"/>
 		<input type="hidden" name="srcpath" value="'.$row['cover'].'"/>';
 	}	
 	$subject .= '</div>
@@ -4740,6 +4741,37 @@ $(function(){
 		}
 		});
 });
+function previewImage(file){
+	if(file.files && file.files[0]){
+		var img = $("#img_url")[0];
+		var reader = new FileReader(),rFilter = /^(?:image\/bmp|image\/cis\-cod|image\/gif|image\/ief|image\/jpeg|image\/jpeg|image\/jpeg|image\/pipeg|image\/png|image\/svg\+xml|image\/tiff|image\/x\-cmu\-raster|image\/x\-cmx|image\/x\-icon|image\/x\-portable\-anymap|image\/x\-portable\-bitmap|image\/x\-portable\-graymap|image\/x\-portable\-pixmap|image\/x\-rgb|image\/x\-xbitmap|image\/x\-xpixmap|image\/x\-xwindowdump)$/i;;  
+		
+		var size = file.size;
+		var Max_Size = 2000*1024;
+		var width,height;
+		var image = new Image();
+		
+		reader.onload = function(evt){
+		img.src=evt.target.result;
+		
+		var data = evt.target.result;
+		/*
+		 image.onload=function(){
+		width = image.width;
+		height = image.height;
+		if(width>img.width && height>img.height){ 
+		alert("图片宽高不符合要求，请上传宽高"+img.width+"*"+img.height+"像素图片");
+		}
+		};*/
+		image.src= data; 
+	} 
+
+    if(!rFilter.test(file.files[0].type)) { alert("文件类型不正确 "); return; }
+    if(size>Max_Size){ alert("文件大小不能超出2M"); return; }
+    
+    reader.readAsDataURL(file.files[0]);
+    }    
+}
     </script>';	
 	return str_replace(array("\n","\t"), array("",""), $subject);
 }
@@ -5460,7 +5492,7 @@ function ArticleUp()
 	$theme = db()->select('id,themeas')->from(PRE.'theme')->where(array('addmenu'=>'OFF','flag'=>0))->get()->array_row();
 	
 	$id = mysql_escape_string($_GET['id']);	
-	$row = db()->select('id,author,cipid,state,stage,top,nocomment,templateid,title,alias,keywords,description,body,columnid,posflag,price,orprice,Sales,chain,sizetype')->from(PRE.'article')->where(array('id'=>$id))->get()->array_row();
+	$row = db()->select('id,author,cipid,state,stage,top,nocomment,templateid,title,alias,keywords,description,body,columnid,posflag,price,orprice,Sales,chain,sizetype,cover')->from(PRE.'article')->where(array('id'=>$id))->get()->array_row();
 			
 	#作者
 	$author = db()->select('userName')->from(PRE.'login')->get()->array_rows();	
@@ -5471,7 +5503,7 @@ function ArticleUp()
 	#标签
 	$tags = db()->select('id,keywords')->from(PRE.'tag')->where(array('templateid'=>$theme['id']))->order_by('id desc')->limit('0,50')->get()->array_rows();
 	#获取往期
-	$stage = db()->select('stage')->from(PRE.'article')->order_by('stage desc')->limit('0,5')->get()->array_rows();
+	$stage = db()->select('stage')->from(PRE.'article')->order_by('CONVERT(stage, UNSIGNED) desc')->limit('0,5')->get()->array_rows();
 	
 	$subject = '<form action="handling_events.php" id="frm" method="post" enctype="multipart/form-data">
 		<div class="useredit">
@@ -5484,7 +5516,7 @@ function ArticleUp()
 		<div class="ujt" style="font-weight:bold;">
 		   标签
 		 <input type="text" name="keywords" value="'.$row['keywords'].'" class="inputs-w"/>
-		  <span style="font-weight:normal;font-size:13px;">(逗号分割) <a href="javascript:;" id="showClBox" style="color:#1D4C7D;">显示常用标签</a></span>
+		  <span style="font-weight:normal;font-size:13px;">(多个标签逗号分割) <!--<a href="javascript:;" id="showClBox" style="color:#1D4C7D;">显示常用标签</a>--></span>
 		  <dl id="listDls" class="clear">';
 if(!empty($tags))
 {		  
@@ -5537,6 +5569,7 @@ if(!empty($stage))
 		</div>
 		<input type="hidden" name="srcpath" value="'.$row['cover'].'"/>';
 	}	
+	/*
 	$subject .= '</div>
 		<div style="height:5px;"></div>
 		<div class="userjibie ujt">辅助信息</div>
@@ -5565,7 +5598,8 @@ if(!empty($stage))
 		<label for="s7" style="color:#666666;">其它</label></div>
 		<div style="height:50px;"></div>
 		';
-
+	*/
+	$subject .= '<div style="height:50px;"></div>'; 
 	$subject .= '<input type="hidden" name="posflag" value="'.$row['posflag'].'"/>'; 
 	
 	$subject .= '<ul class="buttom-girg">
@@ -7688,12 +7722,12 @@ function MenuComponent()
 	{
 	$subject .= '<li><a href="index.php?act=ModuleMng" style="background:url('.site_url('images/link_1.png').') no-repeat 20px 8px;">模块管理</a></li>
 		<li><a href="index.php?act=PluginMng" style="background:url('.site_url('images/plugin_1.png').') no-repeat 20px 8px;">插件管理</a></li>
-		<li><a href="index.php?act=ApplicationCenter" style="background:url('.site_url('images/Cube1_1.png').') no-repeat 20px 8px;">应用中心</a></li>';
+		<!-- <li><a href="index.php?act=ApplicationCenter" style="background:url('.site_url('images/Cube1_1.png').') no-repeat 20px 8px;">应用中心</a></li>-->';
 	}
 	$subject .= '</ul></div>';
 	$subject .= '<script>
 		$(function(){
-		var imgName = new Array("new","article","page","category","tags","comments","accessories","user","orders","resources","themes","link","plugin","Cube1");		
+		var imgName = new Array("new","article","page","category","tags","comments","accessories","user","orders","resources","themes","link","plugin");		
 		var i="'.$colorval.'";
 		if(i != "no")
 		{
@@ -7780,49 +7814,52 @@ function CommentMng()
 	#当前模板
 	$theme = db()->select('id')->from(PRE.'theme')->where(array('addmenu'=>'OFF','flag'=>0))->get()->array_row();
 		
-	if( $_GET['ischecking'] != '1' )//已审核
+	if(!empty($theme))
 	{
-		$sql = 'select id,pid,likes,report,name,tal,email,qq,body,pic,FROM_UNIXTIME(publitime) as publitime,visitorip,titleid,vifiy,filter,state,stopped ';
-		$sql .= ' from '.PRE.'review ';
-		$sql .= ' where state=0 and templateid='.$theme['id'].' '; 
-		if( $_GET['s'] !='' )
+		if( $_GET['ischecking'] != '1' )//已审核
 		{
-			$num = $setreview['searchmaxtotal']==''?10:$setreview['searchmaxtotal'];
-			$sql .= ' and name like "%'.$_GET['s'].'%" ';
+			$sql = 'select id,pid,likes,report,name,tal,email,qq,body,pic,FROM_UNIXTIME(publitime) as publitime,visitorip,titleid,vifiy,filter,state,stopped ';
+			$sql .= ' from '.PRE.'review ';
+			$sql .= ' where state=0 and templateid='.$theme['id'].' '; 
+			if( $_GET['s'] !='' )
+			{
+				$num = $setreview['searchmaxtotal']==''?10:$setreview['searchmaxtotal'];
+				$sql .= ' and name like "%'.$_GET['s'].'%" ';
+			}
+			$rowsTotal = db()->query($sql)->array_nums();
+			$showTotal = $num;
+			$pageTotal = ceil($rowsTotal/$showTotal);
+			$page = $_GET['page']==''?'1':$_GET['page'];
+			if($page>=$pageTotal){$page=$pageTotal;}
+			if($page<=1||!is_numeric($page)){$page=1;}
+			$offset = ($page-1)*$showTotal;
+			$offset = $offset.','.$showTotal;
+			
+			$sql .= " order by publitime desc limit {$offset} ";
+			$rows1 = db()->query($sql)->array_rows();
 		}
-		$rowsTotal = db()->query($sql)->array_nums();
-		$showTotal = $num;
-		$pageTotal = ceil($rowsTotal/$showTotal);
-		$page = $_GET['page']==''?'1':$_GET['page'];
-		if($page>=$pageTotal){$page=$pageTotal;}
-		if($page<=1||!is_numeric($page)){$page=1;}
-		$offset = ($page-1)*$showTotal;
-		$offset = $offset.','.$showTotal;
-		
-		$sql .= " order by publitime desc limit {$offset} ";
-		$rows1 = db()->query($sql)->array_rows();
-	}
-	else 
-	{
-		$sql = 'select id,pid,likes,report,name,tal,email,qq,body,pic,FROM_UNIXTIME(publitime) as publitime,visitorip,titleid,vifiy,filter,state,stopped ';
-		$sql .= ' from '.PRE.'review ';
-		$sql .= ' where state=1 and templateid='.$theme['id'].' '; 
-		if( $_GET['s'] !='' )
+		else 
 		{
-			$sql .= ' and name like "%'.$_GET['s'].'%" ';
+			$sql = 'select id,pid,likes,report,name,tal,email,qq,body,pic,FROM_UNIXTIME(publitime) as publitime,visitorip,titleid,vifiy,filter,state,stopped ';
+			$sql .= ' from '.PRE.'review ';
+			$sql .= ' where state=1 and templateid='.$theme['id'].' '; 
+			if( $_GET['s'] !='' )
+			{
+				$sql .= ' and name like "%'.$_GET['s'].'%" ';
+			}
+			$rowsTotal = db()->query($sql)->array_nums();
+			$showTotal = 12;
+			$pageTotal = ceil($rowsTotal/$showTotal);
+			$page = $_GET['page']==''?'1':$_GET['page'];
+			if($page>=$pageTotal){$page=$pageTotal;}
+			if($page<=1||!is_numeric($page)){$page=1;}
+			$offset = ($page-1)*$showTotal;
+			$offset = ($page-1)*$showTotal;
+			$offset = $offset.','.$showTotal;
+			
+			$sql .= " order by publitime desc limit {$offset} ";
+			$rows2 = db()->query($sql)->array_rows();
 		}
-		$rowsTotal = db()->query($sql)->array_nums();
-		$showTotal = 12;
-		$pageTotal = ceil($rowsTotal/$showTotal);
-		$page = $_GET['page']==''?'1':$_GET['page'];
-		if($page>=$pageTotal){$page=$pageTotal;}
-		if($page<=1||!is_numeric($page)){$page=1;}
-		$offset = ($page-1)*$showTotal;
-		$offset = ($page-1)*$showTotal;
-		$offset = $offset.','.$showTotal;
-		
-		$sql .= " order by publitime desc limit {$offset} ";
-		$rows2 = db()->query($sql)->array_rows();
 	}
 	$subject = '<div class="useredit">';
 	if( isset($_SESSION['flagEorre']) && $_SESSION['flagEorre']==1 )
@@ -8337,7 +8374,7 @@ function OrderMng()
 			'email'=>$email,
 			'ordernumber'=>$ordernumber
 		);
-		$getOrderInfo =  getOrderInfo(null,true,$page,$array);	
+		$getOrderInfo =  getOrderInfo(null,true,$page,$array);			
 	}
 	else 
 	{#留言管理
@@ -8385,13 +8422,11 @@ function OrderMng()
 		</div>';
 	if( $_GET['ischecking'] != '1' )//已审核
 	{	
-		$subject .= '<table class="tableBox">
+		$subject .= '<table class="tableBox" style="text-align:center;">
 			<tr>
 				<th style="text-align:center;">ID</th>
-				<th style="text-align:center;">商品名称</th>			
-				<th style="text-align:center;">订单号</th>
-				<th style="text-align:center;">应付金额</th>
-				<th style="text-align:center;">手机&邮箱</th>
+				<th style="text-align:center;">客户</th>			
+				<th style="text-align:center;">手机</th>
 				<th style="text-align:center;">订单日期</th>
 				<th style="text-align:center;">邮寄地址</th>
 				<th style="text-align:center;">操作</th>
@@ -8405,9 +8440,7 @@ if(!empty($getOrderInfo['data']))
 	{
 		$subject .= '<tr>
 				<td>'.$v['id'].'</td>
-				<td>'.$v['commodity'].'</td>			
-				<td>'.$v['ordernumber'].'</td>
-				<td>'.$v['money'].'</td>
+				<td>'.$v['commodity'].' 先生/女士</td>			
 				<td>'.$v['phone'].($v['email']==''?'':' / '.$v['email']).'</td>
 				<td>'.$v['publitime'].'</td>
 				<td>'.$v['address'].'</td>			
@@ -8421,12 +8454,12 @@ if(!empty($getOrderInfo['data']))
 		$subject .= '
 		<input type="hidden" name="flag3" value="3"/>
 		</form><tr>
-				<td colspan="10">
+				<td colspan="8">
 				<span style="font-size:15px;color:#666666;">总数:'.$getOrderInfo['totaRrows'].'</span>
 				&nbsp;
 				<span style="font-size:15px;color:#666666;">当前:'.$getOrderInfo['page'].'/'.$getOrderInfo['totalpage'].'页</span>
 				&nbsp; ';
-if( $getOrderInfo['totaRrows'] > $getOrderInfo['totalshow'] )
+if( $getOrderInfo['totaRrows'] > $getOrderInfo['totaShow'] )
 {	
 		$subject .= '<a href="index.php?act=OrderMng&page='.($getOrderInfo['page']-1).($_GET['s']==''?'':'&s='.$_GET['s']).'"><input type="submit" value="上一页" class="sub"/></a> &nbsp; <a href="index.php?act=OrderMng&page='.($getOrderInfo['page']+1).($_GET['s']==''?'':'&s='.$_GET['s']).'"><input type="submit" value="下一页" class="sub"/></a>
 				&nbsp; 
@@ -8484,7 +8517,7 @@ if(!empty($MessageInfo['data'])){
 				&nbsp;
 				<span style="font-size:15px;color:#666666;">当前:'.$MessageInfo['page'].'/'.$MessageInfo['totalpage'].'页</span>
 				&nbsp; ';
-if( $MessageInfo['totaRrows'] > $MessageInfo['totalshow'] )
+if( $MessageInfo['totaRrows'] > $MessageInfo['totaShow'] )
 {		
 		$subject .= '<a href="index.php?act=OrderMng&ischecking=1&page='.($MessageInfo['page']-1).($_GET['s']==''?'':'&s='.$_GET['s']).'"><input type="submit" value="上一页" class="sub"/></a> &nbsp; <a href="index.php?act=OrderMng&ischecking=1&page='.($MessageInfo['page']+1).($_GET['s']==''?'':'&s='.$_GET['s']).'"><input type="submit" value="下一页" class="sub"/></a>
 				&nbsp; 
@@ -10508,7 +10541,7 @@ function ArticleEdt()
 	#标签
 	$tags = db()->select('id,keywords')->from(PRE.'tag')->where(array('templateid'=>$theme['id']))->order_by('id desc')->limit('0,50')->get()->array_rows();
 	#获取往期
-	$stage = db()->select('stage')->from(PRE.'article')->order_by('stage desc')->limit('0,5')->get()->array_rows();
+	$stage = db()->select('stage')->from(PRE.'article')->order_by('CONVERT(stage, UNSIGNED) desc')->limit('0,5')->get()->array_rows();
 	#静态化插件
 	include Pagecall('static');
 	$subject = '<form action="handling_events.php" id="frm" method="post" enctype="multipart/form-data">
@@ -10522,7 +10555,7 @@ function ArticleEdt()
 		<div class="ujt" style="font-weight:bold;">
 		   标签
 		 <input type="text" name="keywords" autoComplete="off" class="inputs-w"/>
-		  <span style="font-weight:normal;font-size:13px;">(逗号分割) <a href="javascript:;" id="showClBox" style="color:#1D4C7D;" title="点击">显示常用标签</a></span>
+		  <span style="font-weight:normal;font-size:13px;">(多个标签逗号分割) <!--<a href="javascript:;" id="showClBox" style="color:#1D4C7D;" title="点击">显示常用标签</a>--></span>
 		  <dl id="listDls" class="clear">';
 if(!empty($tags))
 {		  
@@ -10540,7 +10573,7 @@ if(!empty($tags))
 		</div>
 		
 		<div class="userjibie ujt">
-			期数: # 第 <input type="text" name="stage" placeholder="几" class="inputs-w" style="text-align:center;width:45px;"/> 期 #
+			期数: # 第 <input type="text" name="stage" value="'.($stage[0]['stage']+1).'" class="inputs-w" style="text-align:center;width:45px;"/> 期 #
 			&nbsp; &nbsp; &nbsp; &nbsp; 
 			上一期:
 			<select>';
@@ -10561,7 +10594,8 @@ if(!empty($stage))
 	$subject .= '<div style="border:1px solid #CCCCCC;margin-top:2px;width:98px;">
 		<span style="color:#666666;">浏览封面图片</span>
 		<img src="'.apth_url('system/admin/pic/defualt/a-ettra01.jpg').'" width="98" height="77" id="img_url">
-		</div>';
+		</div><div style="height:50px;"></div>';
+	/*
 	$subject .= '</div>
 		<div style="height:5px;"></div>
 		<div class="userjibie ujt">辅助信息</div>
@@ -10590,6 +10624,7 @@ if(!empty($stage))
 		<label for="s7" style="color:#666666;">其它</label></div>
 		<div style="height:50px;"></div>
 		';
+	*/
 if($data['filter'] == 'ON')
 {	
 	$subject .= '<input type="hidden" name="posflag" value="'.$data['art'].'"/>'; 

@@ -29,7 +29,7 @@ function index()
 	#服务端处理数据
 	//$art_List = server_data($articleList);
 	#公共文件内容
-	include 'subject/'.getThemeDir().'/common.php';
+	include 'subject/'.getThemeDir().'/common.php';		
 	unset($articleList);
 	#开启缓冲区
 	ob_start();
@@ -38,14 +38,10 @@ function index()
 	require 'subject/'.getThemeDir().'/template/'.__FUNCTION__.'.html';
 	if( $data['filter'] == 'ON' && $data['index'] == 1 )
 	{	
-		$filename = dir_url('subject/'.getThemeDir().'/index.html');
+		$filename = dir_url(getThemeDir().'/index.html');		
 		#静态化
 		$str = ob_get_contents();
 		file_put_contents($filename, $str);	
-		if( is_file($filename) && $_REQUEST['static_goto']==null )
-		{
-			header('location:'.str_replace(DIR_URL, APTH_URL, $filename));
-		}
 	}
 	else 
 	{#动态时使用页面缓存
@@ -70,7 +66,7 @@ function article_list()
 	CloseSite();
 	
 	#查询模板名称
-	$id = trim(htmlspecialchars($_GET['id'],ENT_QUOTES,'utf-8',false));
+	$id = trim(htmlspecialchars($_REQUEST['id']==null?GetIndexValue(1):$_REQUEST['id'],ENT_QUOTES,'utf-8',false));
 	
 	$module = db()->select('module,forbidden')->from(PRE.'template')->where(array('id'=>$id))->get()->array_row();
 	if(empty($module)||$module['module']=='article_list')
@@ -124,7 +120,7 @@ function article_list()
 	{
 		if(!empty($_REQUEST['page']))
 		{#分页
-			$filename = dir_url('subject/'.getThemeDir().'/paging');
+			$filename = dir_url('paging');
 			if(!is_dir($filename))
 			{
 				mkdir($filename,0777,true);
@@ -135,7 +131,7 @@ function article_list()
 		}
 		else 
 		{
-			$filename = dir_url('subject/'.getThemeDir().'/column');
+			$filename = dir_url('column');
 			if(!is_dir($filename))
 			{
 				mkdir($filename,0777,true);
@@ -154,7 +150,8 @@ function article_content()
 	CloseSite();
 	
 	#评论列表
-	$commentList = This_review($_GET['id']);
+	$commentList = This_review($_REQUEST['id']);
+	
 	#用户昵称
 	$nickname = nickname(0);
 	#评论设置
@@ -181,7 +178,7 @@ function article_content()
 	#相关内容	
 	if(!empty($ArticleBoby['cipid']))
 	{
-		$relevant = AnchorClass($_GET['id'],$ArticleBoby['cipid'],$setreview['listtotal'],0);
+		$relevant = AnchorClass($_REQUEST['id'],$ArticleBoby['cipid'],$setreview['listtotal'],0);
 	}
 	
 	#公共文件内容
@@ -198,7 +195,7 @@ function article_content()
 		#静态化
 		$str = ob_get_contents();
 		#文章静态化目录
-		$dirapth = dir_url('subject/'.getThemeDir().'/artic/'.substr($ArticleBoby['poslink'],0,4).'/'.substr($ArticleBoby['poslink'],4,2));
+		$dirapth = dir_url('artic');
 		if(!is_dir($dirapth))
 		{
 			mkdir($dirapth,0777,true);

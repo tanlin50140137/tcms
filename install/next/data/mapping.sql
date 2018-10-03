@@ -177,13 +177,15 @@ key key_autoplug1(autoplug1),
 key key_autoplug2(autoplug2)
 )ENGINE=%104% DEFAULT CHARSET='%102%';
 #777#
-INSERT INTO `%103%theme` VALUES ('2', 'TanLin', '#', 'comment', '文章评论插件', 'subject/plugin/comment/css', '0', '文章内容相关评论，拥有它，游客可以畅所欲言；相关设置安装插件后进后管理操作！', 'OFF', '', 'include', '0', 'subject/plugin/comment/logo/20170423203253.png', '1492950773', '0', 'subject/plugin/comment/xml-rpc.xml', '1');
+INSERT INTO `%103%theme` VALUES ('1', 'tcms', '#', 'default', '默认主题', 'subject/default/css', '0', '免费默认主题', 'OFF', 'main', 'include', '0', 'subject/default/upload/20181003120737.png', '1538539657', '1', 'subject/default/plugin/default/xml-rpc.xml', '0');
 #777#
-INSERT INTO `%103%theme` VALUES ('3', 'TanLin', '#', 'static', '静态管理中心', '/subject/plugin/static/css', '0', '首页、列表页、文章内容页面，静态化，搜索引擎高效收录必备利器。', 'OFF', '', 'include', '0', '/subject/plugin/static/logo/20170423202033.jpg', '1492950033', '0', '/subject/plugin/static/xml-rpc.xml', '1');
+INSERT INTO `%103%theme` VALUES ('2', 'tcms', '#', 'comment', '文章评论插件', 'subject/plugin/comment/css', '0', '文章内容相关评论，拥有它，游客可以畅所欲言；相关设置安装插件后进后管理操作！', 'OFF', '', 'include', '0', 'subject/plugin/comment/logo/20170423203253.png', '1492950773', '0', 'subject/plugin/comment/xml-rpc.xml', '1');
 #777#
-INSERT INTO `%103%theme` VALUES ('4', 'TanLin', '#', 'databackup', '数据备份插件', 'subject/plugin/databackup/css', '0', '数据库备份、还原插件', 'OFF', '', 'include', '0', 'subject/plugin/databackup/logo/20170521193225.jpg', '1495366344', '0', 'subject/plugin/databackup/xml-rpc.xml', '1');
+INSERT INTO `%103%theme` VALUES ('3', 'tcms', '#', 'static', '静态管理中心', '/subject/plugin/static/css', '0', '首页、列表页、文章内容页面，静态化，搜索引擎高效收录必备利器。', 'OFF', '', 'include', '0', '/subject/plugin/static/logo/20170423202033.jpg', '1492950033', '0', '/subject/plugin/static/xml-rpc.xml', '1');
 #777#
-INSERT INTO `%103%theme` VALUES ('5', 'TanLin', '#', 'share', '内容分享插件', 'subject/plugin/share/css', '0', '分享链接，分享文章，分享图片', 'OFF', '', 'include', '0', 'subject/plugin/share/logo/20170522213118.png', '1495459878', '0', 'subject/plugin/share/xml-rpc.xml', '1');
+INSERT INTO `%103%theme` VALUES ('4', 'tcms', '#', 'databackup', '数据备份插件', 'subject/plugin/databackup/css', '0', '数据库备份、还原插件', 'OFF', '', 'include', '0', 'subject/plugin/databackup/logo/20170521193225.jpg', '1495366344', '0', 'subject/plugin/databackup/xml-rpc.xml', '1');
+#777#
+INSERT INTO `%103%theme` VALUES ('5', 'tcms', '#', 'share', '内容分享插件', 'subject/plugin/share/css', '0', '分享链接，分享文章，分享图片', 'OFF', '', 'include', '0', 'subject/plugin/share/logo/20170522213118.png', '1495459878', '0', 'subject/plugin/share/xml-rpc.xml', '1');
 #777#
 drop table if exists %103%module;
 #777#

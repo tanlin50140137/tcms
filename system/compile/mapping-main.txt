@@ -32,58 +32,58 @@ if(!empty($row))
 				<td>
 				<p style="position:relative;">
 				<span class="clzhid filter" style="height:17px;margin-top:4px;background:url(http://127.0.0.1/ThisCMSSystem/system/admin/images/checkbox.png) no-repeat 0 -17px;"></span><span class="clzhid" style="width:100px;margin-left:2px;"></span>
-				<input type="hidden" name="filter" value="<?php echo $data['filter']?>" />
+				<input type="hidden" name="filter" value="<?php echo urldecode($data['filter'])?>" />
 				</td>
 			</tr>
 			<tr>
 				<td width="320"><b>文本框</b></td>
 				<td>		
-					<input type="text" name="text" value="<?php echo $data['text']?>"/>
+					<input type="text" name="text" value="<?php echo urldecode($data['text'])?>"/>
 				</td>
 			</tr>
 			<tr>
 				<td width="320"><b>密码框</b></td>
 				<td>		
-					<input type="password" name="password" value="<?php echo $data['password']?>"/>
+					<input type="password" name="password" value="<?php echo urldecode($data['password'])?>"/>
 				</td>
 			</tr>
 			<tr>
 				<td width="320"><b>大文本框</b></td>
 				<td>		
-					<textarea name="textarea"><?php echo $data['textarea']?></textarea>
+					<textarea name="textarea"><?php echo urldecode($data['textarea'])?></textarea>
 				</td>
 			</tr>
 			<tr>
 				<td width="320"><b>下拉框</b></td>
 				<td>		
 					<select name="select">
-						<option value="1" <?php echo $data['select']==1?'selected="selected"':''?>>下拉1</option>
-						<option value="2" <?php echo $data['select']==2?'selected="selected"':''?>>下拉2</option>
-						<option value="3" <?php echo $data['select']==3?'selected="selected"':''?>>下拉3</option>
-						<option value="4" <?php echo $data['select']==4?'selected="selected"':''?>>下拉4</option>
+						<option value="1" <?php echo urldecode($data['select'])==1?'selected="selected"':''?>>下拉1</option>
+						<option value="2" <?php echo urldecode($data['select'])==2?'selected="selected"':''?>>下拉2</option>
+						<option value="3" <?php echo urldecode($data['select'])==3?'selected="selected"':''?>>下拉3</option>
+						<option value="4" <?php echo urldecode($data['select'])==4?'selected="selected"':''?>>下拉4</option>
 					</select>
 				</td>
 			</tr>
 			<tr>
 				<td width="320"><b>单选框</b></td>
 				<td>		
-				<input type="radio" name="art" value="1" id="rt2" <?php echo $data['art']==1?'checked="checked"':''?>/><label for="rt2"> 选我1</label> &nbsp; &nbsp;
-				<input type="radio" name="art" value="0" id="rt1" <?php echo $data['art']==0?'checked="checked"':''?>/><label for="rt1"> 选我2</label>
+				<input type="radio" name="art" value="1" id="rt2" <?php echo urldecode($data['art'])==1?'checked="checked"':''?>/><label for="rt2"> 选我1</label> &nbsp; &nbsp;
+				<input type="radio" name="art" value="0" id="rt1" <?php echo urldecode($data['art'])==0?'checked="checked"':''?>/><label for="rt1"> 选我2</label>
 				</td>
 			</tr>
 			<tr>
 				<td width="320"><b>复选框</b></td>
 				<td>
-				<input type="checkbox" name="index1" value="1" id="index2" <?php echo $data['index1']==1?'checked="checked"':''?>/><label for="index2"> 选我1</label> &nbsp; &nbsp;	
-				<input type="checkbox" name="index2" value="2" id="index1" <?php echo $data['index2']==2?'checked="checked"':''?>/><label for="index1"> 选我2</label>			
+				<input type="checkbox" name="index1" value="1" id="index2" <?php echo urldecode($data['index1'])==1?'checked="checked"':''?>/><label for="index2"> 选我1</label> &nbsp; &nbsp;	
+				<input type="checkbox" name="index2" value="2" id="index1" <?php echo urldecode($data['index2'])==2?'checked="checked"':''?>/><label for="index1"> 选我2</label>			
 				</td>
 			</tr>
 			<tr>
 				<td width="320"><b>文件框</b></td>
 				<td>
 					图片上传1 
-					<input type="file" name="file1"/><img src="<?php echo apth_url($data['file1']);?>" width="32" height="32"/>
-					<input type="hidden" name="file1" value="<?php echo $data['file1'];?>"/>
+					<input type="file" name="file1"/><img src="<?php echo urldecode(apth_url($data['file1']));?>" width="32" height="32"/>
+					<input type="hidden" name="file1" value="<?php echo urldecode($data['file1']);?>"/>
 				</td>
 			</tr>	
 			<tr>

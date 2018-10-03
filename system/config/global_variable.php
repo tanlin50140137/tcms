@@ -50,5 +50,5 @@ date_default_timezone_set($review['sitetimezone']);
 set_ini_error($review);
 ################################################################################################
 #服务链接Service link
-define("SERVICE_LINK", 'http://127.0.0.1/ThisCMSSystem/');
+//define("SERVICE_LINK", 'http://127.0.0.1/ThisCMSSystem/');
 ################################################################################################

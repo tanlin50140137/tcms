@@ -234,29 +234,44 @@ function step2()
 							<th colspan="3" height="25">权限检查</th>
 						</tr>
 						<tr>
-							<td height="25" style="text-indent:0.5em;">subject</td>
-							<td height="25" align="center">'.perms_all('../subject').'</td>
-							<td height="25" align="center">'.(perms_all('../subject',1)!='0777'?'<img src="next/images/exclamation.png" align="absmiddle"/>':'<img src="next/images/ok.png" align="absmiddle"/>').'</td>
-						</tr>
-						<tr>
-							<td height="25" style="text-indent:0.5em;">subject/plugin</td>
-							<td height="25" align="center">'.perms_all('../subject/plugin').'</td>
-							<td height="25" align="center">'.(perms_all('../subject/plugin',1)!='0777'?'<img src="next/images/exclamation.png" align="absmiddle"/>':'<img src="next/images/ok.png" align="absmiddle"/>').'</td>
-						</tr>
-						<tr>
 							<td height="25" style="text-indent:0.5em;">subject/upload</td>
 							<td height="25" align="center">'.perms_all('../subject/upload').'</td>
 							<td height="25" align="center">'.(perms_all('../subject/upload',1)!='0777'?'<img src="next/images/exclamation.png" align="absmiddle"/>':'<img src="next/images/ok.png" align="absmiddle"/>').'</td>
 						</tr>
 						<tr>
-							<td height="25" style="text-indent:0.5em;">system</td>
-							<td height="25" align="center">'.perms_all('../system').'</td>
-							<td height="25" align="center">'.(perms_all('../system',1)!='0777'?'<img src="next/images/exclamation.png" align="absmiddle"/>':'<img src="next/images/ok.png" align="absmiddle"/>').'</td>
+							<td height="25" style="text-indent:0.5em;">subject/plugin/databackup/backups</td>
+							<td height="25" align="center">'.perms_all('../subject/plugin/databackup/backups').'</td>
+							<td height="25" align="center">'.(perms_all('../subject/plugin/databackup/backups',1)!='0777'?'<img src="next/images/exclamation.png" align="absmiddle"/>':'<img src="next/images/ok.png" align="absmiddle"/>').'</td>
+						</tr>
+						<tr>
+							<td height="25" style="text-indent:0.5em;">subject/plugin/databackup/pack</td>
+							<td height="25" align="center">'.perms_all('../subject/plugin/databackup/pack').'</td>
+							<td height="25" align="center">'.(perms_all('../subject/plugin/databackup/pack',1)!='0777'?'<img src="next/images/exclamation.png" align="absmiddle"/>':'<img src="next/images/ok.png" align="absmiddle"/>').'</td>
 						</tr>
 						<tr>
 							<td height="25" style="text-indent:0.5em;">system/config</td>
 							<td height="25" align="center">'.perms_all('../system/config').'</td>
 							<td height="25" align="center">'.(perms_all('../system/config',1)!='0777'?'<img src="next/images/exclamation.png" align="absmiddle"/>':'<img src="next/images/ok.png" align="absmiddle"/>').'</td>
+						</tr>
+						<tr>
+							<td height="25" style="text-indent:0.5em;">artic</td>
+							<td height="25" align="center">'.perms_all('../artic').'</td>
+							<td height="25" align="center">'.(perms_all('../artic',1)!='0777'?'<img src="next/images/exclamation.png" align="absmiddle"/>':'<img src="next/images/ok.png" align="absmiddle"/>').'</td>
+						</tr>
+						<tr>
+							<td height="25" style="text-indent:0.5em;">column</td>
+							<td height="25" align="center">'.perms_all('../column').'</td>
+							<td height="25" align="center">'.(perms_all('../column',1)!='0777'?'<img src="next/images/exclamation.png" align="absmiddle"/>':'<img src="next/images/ok.png" align="absmiddle"/>').'</td>
+						</tr>
+						<tr>
+							<td height="25" style="text-indent:0.5em;">paging</td>
+							<td height="25" align="center">'.perms_all('../paging').'</td>
+							<td height="25" align="center">'.(perms_all('../paging',1)!='0777'?'<img src="next/images/exclamation.png" align="absmiddle"/>':'<img src="next/images/ok.png" align="absmiddle"/>').'</td>
+						</tr>
+						<tr>
+							<td height="25" style="text-indent:0.5em;">default</td>
+							<td height="25" align="center">'.perms_all('../default').'</td>
+							<td height="25" align="center">'.(perms_all('../default',1)!='0777'?'<img src="next/images/exclamation.png" align="absmiddle"/>':'<img src="next/images/ok.png" align="absmiddle"/>').'</td>
 						</tr>
 						<tr>
 							<th colspan="3" height="25">接口检查</th>
@@ -481,7 +496,7 @@ function step3()
 						</tr>
 						<tr>
 							<td height="36" style="text-indent:0.5em;"><b>表前缀：</td>
-							<td height="36" style="text-indent:0.5em;"><input type="text" name="prefix" value="This_" style="width:280px;padding:3px;"/></td>
+							<td height="36" style="text-indent:0.5em;"><input type="text" name="prefix" value="this_" style="width:280px;padding:3px;"/></td>
 						</tr>
 						<tr>
 							<td height="36" style="text-indent:0.5em;"><b>表存储引擎：</b></td>

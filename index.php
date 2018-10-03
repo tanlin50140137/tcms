@@ -13,11 +13,14 @@ function TestInstallation()
 	}
 }
 
+$SET_PHP = 'SET_URI';
+
 TestInstallation();
 
+require 'system/.setting_uri.php';
 require 'public_include.php';
 require 'system/index_module.php';
 
-define(LIST_ID, $_GET['id']);
+define(LIST_ID, $_REQUEST['id']);
 
 load_theme( getThemeDir() );

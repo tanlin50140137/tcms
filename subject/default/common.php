@@ -15,7 +15,7 @@ $global = This_setting();
 #服务端处理数据,栏目列表
 $col_List = get_columnList(0);
 #获取指定栏目信息,栏目列表
-$columninfo = get_columninfo($_GET['id']);
+$columninfo = get_columninfo($_REQUEST['id']);
 #获取主题并插件活动总数
 $thpRows = getRowsThP();
 #栏目列表+封面,$columnmodule=文件名，该栏目下的所有封面（包括子栏目）

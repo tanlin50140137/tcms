@@ -8,19 +8,8 @@ if(!empty($arr))
 	$site_url = join('/',$arr);
 }
 
-$dir = $_REQUEST['dir'];
+$imgPath = $_REQUEST['dir'];
 
-$u = str_replace(array('/','.'), array('\/','\.'), 'http://'.$_SERVER['HTTP_HOST'].'/'.$arr[1]);
-
-if(preg_match("/$u/i", $dir ))
-{#绝对链接时
-	$imgPath = str_replace(APTH_URL, DIR_URL, $dir);
-}
-else
-{#相对链接时
-	$imgPath = $_SERVER['DOCUMENT_ROOT'].$dir;
-}	
- 
 $width = $_REQUEST['x']==''?0:$_REQUEST['x'];
 $height = $_REQUEST['y']==''?0:$_REQUEST['y'];
 
