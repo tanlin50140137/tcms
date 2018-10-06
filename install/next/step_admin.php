@@ -231,6 +231,11 @@ function step2()
 							<td height="25" align="center">'.(extension_loaded('json')==false?'<img src="next/images/exclamation.png" align="absmiddle"/>':'<img src="next/images/ok.png" align="absmiddle"/>').'</td>
 						</tr>
 						<tr>
+							<td height="25" style="text-indent:0.5em;">memcache</td>
+							<td height="25" align="center">'.(extension_loaded('memcache')==false?'未开启':'开启').'</td>
+							<td height="25" align="center">'.(extension_loaded('memcache')==false?'<img src="next/images/exclamation.png" align="absmiddle"/>':'<img src="next/images/ok.png" align="absmiddle"/>').'</td>
+						</tr>
+						<tr>
 							<th colspan="3" height="25">权限检查</th>
 						</tr>
 						<tr>
@@ -327,14 +332,18 @@ function step2()
 	var zip = "'.extension_loaded('zip').'";
 	var iconv = "'.extension_loaded('iconv').'";
 	var json = "'.extension_loaded('json').'";
-	var dir1 = "'.perms_all('../subject',1).'";
-	var dir2 = "'.perms_all('../subject/plugin',1).'";
-	var dir3 = "'.perms_all('../subject/upload',1).'";
-	var dir4 = "'.perms_all('../system',1).'";
-	var dir5 = "'.perms_all('../system/config',1).'";
+	var dir1 = "'.perms_all('../subject/upload',1).'";
+	var dir2 = "'.perms_all('../subject/plugin/databackup/backups',1).'";
+	var dir3 = "'.perms_all('../subject/plugin/databackup/pack',1).'";
+	var dir4 = "'.perms_all('../system/config',1).'";
+	var dir5 = "'.perms_all('../artic',1).'";
+	var dir6 = "'.perms_all('../column',1).'";
+	var dir7 = "'.perms_all('../paging',1).'";
+	var dir8 = "'.perms_all('../default',1).'";
 	var sockets = "'.extension_loaded('sockets').'";
 	var xml = "'.extension_loaded('xml').'";
 	var curl = "'.extension_loaded('curl').'";
+	var memcache = "'.extension_loaded('memcache').'";
 	b.onclick = function(){
 		if(http == ""){
 			alert("服务器环境错误，HTTP服务器，无法找到");
@@ -404,23 +413,35 @@ function step2()
 	   		return false;
 		}
 		if( dir1 != "0777" ){
-			alert("subject目录权限不足，请设置为可读写权限");
-	   		return false;
-		}
-		if( dir2 != "0777" ){
-			alert("subject/plugin目录权限不足，请设置为可读写权限");
-	   		return false;
-		}
-		if( dir3 != "0777" ){
 			alert("subject/upload目录权限不足，请设置为可读写权限");
 	   		return false;
 		}
+		if( dir2 != "0777" ){
+			alert("subject/plugin/databackup/backups目录权限不足，请设置为可读写权限");
+	   		return false;
+		}
+		if( dir3 != "0777" ){
+			alert("subject/plugin/databackup/pack目录权限不足，请设置为可读写权限");
+	   		return false;
+		}
 		if( dir4 != "0777" ){
-			alert("system目录权限不足，请设置为可读写权限");
+			alert("system/config目录权限不足，请设置为可读写权限");
 	   		return false;
 		}
 		if( dir5 != "0777" ){
-			alert("system/config目录权限不足，请设置为可读写权限");
+			alert("artic目录权限不足，请设置为可读写权限");
+	   		return false;
+		}
+		if( dir6 != "0777" ){
+			alert("column目录权限不足，请设置为可读写权限");
+	   		return false;
+		}
+		if( dir7 != "0777" ){
+			alert("paging目录权限不足，请设置为可读写权限");
+	   		return false;
+		}
+		if( dir8 != "0777" ){
+			alert("default目录权限不足，请设置为可读写权限");
 	   		return false;
 		}
 		if( sockets == false ){
@@ -433,6 +454,10 @@ function step2()
 		}
 		if( curl == false ){
 			alert("curl组件未开启");
+	   		return false;
+		}
+		if( memcache == false ){
+			alert("memcache组件未开启");
 	   		return false;
 		}
 		location.href="index.php?act=step3";

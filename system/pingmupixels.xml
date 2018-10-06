@@ -2,5 +2,5 @@
 <box>
 <act>pingmupixels</act>
 <pixels>1400</pixels>
-<call>ThemeMng</call>
+<call>SettingMng</call>
 </box>

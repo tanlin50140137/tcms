@@ -1,0 +1,68 @@
+!SESSION 2018-10-06 17:26:23.043 -----------------------------------------------
+eclipse.buildId=unknown
+java.version=1.6.0_18
+java.vendor=Sun Microsystems Inc.
+BootLoader constants: OS=win32, ARCH=x86, WS=win32, NL=zh_CN
+Framework arguments:  -showlocation -showlocation
+Command-line arguments:  -os win32 -ws win32 -arch x86 -showlocation -data F:\web\www\b\tcms -showlocation
+
+!ENTRY org.eclipse.osgi 2 1 2018-10-06 17:26:28.295
+!MESSAGE NLS unused message: RemoteServerConfigurationPage_RemoteConfiguratiuon in: com.zend.php.remoteproject.internal.ui.wizard.messages
+
+!ENTRY org.eclipse.osgi 2 1 2018-10-06 17:26:28.296
+!MESSAGE NLS unused message: RemoteServerConfigurationPage_formatServerURLError in: com.zend.php.remoteproject.internal.ui.wizard.messages
+
+!ENTRY org.eclipse.osgi 2 1 2018-10-06 17:26:28.297
+!MESSAGE NLS missing message: CreateProjectWorkspaceJob_0 in: com.zend.php.remoteproject.internal.ui.wizard.messages
+
+!ENTRY org.eclipse.osgi 2 1 2018-10-06 17:26:28.298
+!MESSAGE NLS missing message: CreateProjectWorkspaceJob_1 in: com.zend.php.remoteproject.internal.ui.wizard.messages
+
+!ENTRY org.eclipse.php.debug.core 4 4 2018-10-06 17:26:29.538
+!MESSAGE Error while restting the socket for the debug requests.
+!STACK 0
+java.net.SocketException: Unrecognized Windows Sockets error: 0: JVM_Bind
+	at java.net.PlainSocketImpl.socketBind(Native Method)
+	at java.net.PlainSocketImpl.bind(Unknown Source)
+	at java.net.ServerSocket.bind(Unknown Source)
+	at java.net.ServerSocket.<init>(Unknown Source)
+	at java.net.ServerSocket.<init>(Unknown Source)
+	at org.eclipse.php.internal.debug.core.daemon.AbstractDebuggerCommunicationDaemon.resetSocket(AbstractDebuggerCommunicationDaemon.java:118)
+	at org.eclipse.php.internal.debug.core.daemon.AbstractDebuggerCommunicationDaemon.init(AbstractDebuggerCommunicationDaemon.java:50)
+	at org.eclipse.php.internal.debug.core.xdebug.communication.XDebugCommunicationDaemon.init(XDebugCommunicationDaemon.java:79)
+	at org.eclipse.php.internal.debug.daemon.DaemonPlugin.startDaemons(DaemonPlugin.java:92)
+	at org.eclipse.php.internal.debug.daemon.DaemonPlugin$1.run(DaemonPlugin.java:67)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:54)
+
+!ENTRY org.eclipse.php.debug.core 4 4 2018-10-06 17:26:29.552
+!MESSAGE Error while resetting the socket for the debug requests.
+!STACK 0
+java.net.SocketException: Unrecognized Windows Sockets error: 0: JVM_Bind
+	at java.net.PlainSocketImpl.socketBind(Native Method)
+	at java.net.PlainSocketImpl.bind(Unknown Source)
+	at java.net.ServerSocket.bind(Unknown Source)
+	at java.net.ServerSocket.<init>(Unknown Source)
+	at java.net.ServerSocket.<init>(Unknown Source)
+	at com.zend.php.debug.core.communication.AdvancedDebuggerCommunicationDaemon.resetSocket(AdvancedDebuggerCommunicationDaemon.java)
+	at org.eclipse.php.internal.debug.core.daemon.AbstractDebuggerCommunicationDaemon.init(AbstractDebuggerCommunicationDaemon.java:50)
+	at org.eclipse.php.internal.debug.core.zend.communication.DebuggerCommunicationDaemon.init(DebuggerCommunicationDaemon.java:51)
+	at com.zend.php.debug.core.communication.AdvancedDebuggerCommunicationDaemon.init(AdvancedDebuggerCommunicationDaemon.java)
+	at org.eclipse.php.internal.debug.daemon.DaemonPlugin.startDaemons(DaemonPlugin.java:92)
+	at org.eclipse.php.internal.debug.daemon.DaemonPlugin$1.run(DaemonPlugin.java:67)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:54)
+
+!ENTRY org.eclipse.php.debug.core 4 4 2018-10-06 17:26:29.554
+!MESSAGE Error while restting the socket for the debug requests.
+!STACK 0
+java.net.SocketException: Unrecognized Windows Sockets error: 0: JVM_Bind
+	at java.net.PlainSocketImpl.socketBind(Native Method)
+	at java.net.PlainSocketImpl.bind(Unknown Source)
+	at java.net.ServerSocket.bind(Unknown Source)
+	at java.net.ServerSocket.<init>(Unknown Source)
+	at java.net.ServerSocket.<init>(Unknown Source)
+	at org.eclipse.php.internal.debug.core.daemon.AbstractDebuggerCommunicationDaemon.resetSocket(AbstractDebuggerCommunicationDaemon.java:118)
+	at org.eclipse.php.internal.debug.core.daemon.AbstractDebuggerCommunicationDaemon.init(AbstractDebuggerCommunicationDaemon.java:50)
+	at org.eclipse.php.internal.debug.core.zend.communication.DebuggerCommunicationDaemon.init(DebuggerCommunicationDaemon.java:51)
+	at org.eclipse.php.internal.debug.daemon.DaemonPlugin.startDaemons(DaemonPlugin.java:92)
+	at org.eclipse.php.internal.debug.daemon.DaemonPlugin$1.run(DaemonPlugin.java:67)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:54)
